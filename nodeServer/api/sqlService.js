@@ -9,7 +9,7 @@ apirouter.route("/signup").post(function (req, res) {
   console.log(req);
   connection.query(sql, data, function (err, result) {
     if (err) {
-      res.send({ message: "Somethin is Wrong" });
+      res.send(err);
     }
     res.send(result);
   });

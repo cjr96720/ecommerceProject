@@ -2,6 +2,15 @@
   <div>
     <h1>Sign Up</h1>
     <div class="container">
+      <div class="form-control">
+        <label>Username</label>
+        <input
+          v-model="name"
+          type="text"
+          placeholder="Enter Username"
+          autocomplete="off"
+        />
+      </div>
       <div class="add-form">
         <div class="form-control">
           <label>Email</label>
@@ -44,6 +53,7 @@ export default {
   name: "LoginMember",
   data() {
     return {
+      name: "",
       email: "",
       pwd1: "",
       pwd2: "",
@@ -51,6 +61,13 @@ export default {
   },
   methods: {
     async signup() {
+      if (this.name == "") {
+        $("#errorMessage").html("❗Enter Username");
+        return;
+      } else {
+        $("#errorMessage").empty();
+      }
+
       if (this.email == "") {
         $("#errorMessage").html("❗Enter email");
         return;
@@ -72,6 +89,7 @@ export default {
         $("#errorMessage").empty();
       }
 
+      // checking if email already exists
       const res = await fetch(
         `${process.env.VUE_APP_URL_PREFIX}/api/emailCheck`,
         {
@@ -89,7 +107,8 @@ export default {
         $("#errorMessage").html("❗Member exists");
       } else {
         const newMember = {
-          eamil: this.email,
+          name: this.name,
+          email: this.email,
           password: this.pwd1,
         };
 

@@ -13,9 +13,7 @@
 <script>
 export default {
   name: "Nav",
-  props: {
-      loginStatus: Boolean
-  }
+  
 };
 </script>
 
