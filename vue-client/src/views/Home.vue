@@ -18,7 +18,8 @@ export default {
 <style scoped>
 
 .imgdiv {
-  width: 80%;
+  max-width: 800px;
+  max-height: 600px;
   margin: 20px auto;
   text-align: center;
 }

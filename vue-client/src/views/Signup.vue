@@ -17,7 +17,7 @@ export default {
       axios
         .post(url, newMember)
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           alert("Welcome!");
           this.$router.push("/login");
         })

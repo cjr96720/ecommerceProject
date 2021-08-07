@@ -90,16 +90,14 @@ export default {
       }
 
       // checking if email already exists
-      const res = await fetch(
-        `${process.env.VUE_APP_URL_PREFIX}/api/emailCheck`,
-        {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify({ email: this.email }),
-        }
-      );
+      const url = `${process.env.VUE_APP_URL_PREFIX}/api/emailCheck`;
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ email: this.email }),
+      });
       const data = await res.json();
       //   console.log(data);
 

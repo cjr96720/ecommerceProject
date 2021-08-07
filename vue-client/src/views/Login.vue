@@ -10,6 +10,6 @@ export default{
     name: 'Login',
     components: {
         LoginMember
-    }
+    },
 }
 </script>

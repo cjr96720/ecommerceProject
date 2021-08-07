@@ -8,18 +8,24 @@
         </div>
         <div class="form-control">
           <label>Email</label>
-          <input type="text" placeholder="Enter Email" autocomplete="off" />
+          <input
+            v-model="loginEmail"
+            type="text"
+            placeholder="Enter Email"
+            autocomplete="off"
+          />
         </div>
         <div class="form-control">
           <label>Password</label>
           <input
+            v-model="loginPwd"
             type="password"
             placeholder="Enter Password"
             autocomplete="off"
           />
         </div>
-
-        <input type="submit" value="Login" class="btn btn-block" />
+        <div id="errorMessage"></div>
+        <button @click="login" class="btn btn-block">Login</button>
       </form>
     </div>
   </div>
@@ -28,10 +34,45 @@
 <script>
 export default {
   name: "LoginMember",
+  data() {
+    return {
+      loginEmail: "",
+      loginPwd: "",
+    };
+  },
+  props:{
+    loginStatus: Boolean,
+  },
+  methods: {
+    login() {
+      const loginInfo = {
+        email: this.loginEmail,
+        password: this.loginPwd,
+      };
+
+      const url = `${process.env.VUE_APP_URL_PREFIX}/api/login`;
+      axios.post(url, loginInfo).then((result) => {
+        const { data } = result;
+        if (data.length > 0) {
+          // console.log(data);
+          this.$emit("toggle-status", data);
+        } else {
+          $("#errorMessage").html("❗Try again");
+        }
+      });
+    },
+  },
 };
 </script>
 
 <style scoped>
+#errorMessage {
+  margin: 0px auto;
+  background: #feefb3;
+  text-align: center;
+  width: 100%;
+  line-height: 50px;
+}
 .container {
   max-width: 500px;
   margin: 30px auto;
@@ -60,11 +101,11 @@ export default {
 }
 .btn {
   display: inline-block;
-  background: #D3D3D3;
+  background: #d3d3d3;
   color: #000;
   border: none;
   padding: 10px 20px;
-  margin: 5px;
+  margin-top: 10px;
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
