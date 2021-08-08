@@ -4,19 +4,31 @@
       <router-link to="/"><li>Home</li></router-link>
       <router-link to="/about"><li>About</li></router-link>
       <router-link to="/shop"><li>Shop</li></router-link>
-      <router-link to="/cart"><li>Cart</li></router-link>
+
       <router-link to="/member"
         ><li :style="{ display: loginStatus ? '' : 'none' }">
           {{ memberInfo.memberName }}
         </li></router-link
       >
       <router-link to="/"
-        ><li @click="$emit('logout')" :style="{ display: loginStatus ? '' : 'none' }">
+        ><li
+          @click="$emit('logout')"
+          :style="{ display: loginStatus ? '' : 'none' }"
+        >
           Logout
         </li></router-link
       >
       <router-link to="/login" :style="{ display: loginStatus ? 'none' : '' }"
         ><li>Login</li></router-link
+      >
+      <router-link to="/cart"
+        ><li>
+          <i class="fas fa-shopping-cart"
+            ><span id="badge" class="badge">{{
+              cartCount === 0 ? "" : cartCount
+            }}</span></i
+          >
+        </li></router-link
       >
     </ul>
   </div>
@@ -28,6 +40,7 @@ export default {
   props: {
     loginStatus: Boolean,
     memberInfo: Object,
+    cartCount: Number,
   },
 };
 </script>
@@ -81,5 +94,17 @@ export default {
 
 a:link {
   text-decoration: none;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 90%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
 }
 </style>

@@ -1,8 +1,13 @@
 <template>
   <div>
-    <Nav :loginStatus="loginStatus" :memberInfo="memberInfo" @logout="logout" />
+    <Nav
+      :loginStatus="loginStatus"
+      :memberInfo="memberInfo"
+      @logout="logout"
+      :cartCount="cartCount"
+    />
 
-    <router-view @toggle-status="toggleStatus"></router-view>
+    <router-view @toggle-status="toggleStatus" @click-buy="clickBuy"></router-view>
   </div>
 </template>
 
@@ -22,6 +27,7 @@ export default {
         memberName: "",
         memberEmail: "",
       },
+      cartCount: 0,
     };
   },
   methods: {
@@ -48,8 +54,12 @@ export default {
 
       // console.log(this.memberInfo);
 
-      alert('See you next time!');
+      alert("See you next time!");
     },
+    clickBuy(id){
+      console.log(id);
+      this.cartCount ++;
+    }
   },
 };
 </script>
