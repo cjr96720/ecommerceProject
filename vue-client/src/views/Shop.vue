@@ -1,5 +1,5 @@
 <template>
-  <ItemTable :items="items" @buy-item="$emit('click-buy', id)" />
+  <ItemTable :items="items" @click-buy="clickBuy" />
 </template>
 
 <script>
@@ -17,6 +17,7 @@ export default {
   },
   props: {
     cartCount: Number,
+    loginStatus: Boolean,
   },
   methods: {
     async fetchItems() {
@@ -34,6 +35,9 @@ export default {
       //       return data;
       //     })
       //     .catch((error) => console.log(error));
+    },
+    clickBuy(id) {
+      this.loginStatus ? this.$emit('click-buy', id) : alert('Please log in first!')
     },
   },
   async created() {

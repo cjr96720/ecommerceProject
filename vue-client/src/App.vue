@@ -7,7 +7,11 @@
       :cartCount="cartCount"
     />
 
-    <router-view @toggle-status="toggleStatus" @click-buy="clickBuy"></router-view>
+    <router-view
+      @toggle-status="toggleStatus"
+      @click-buy="clickBuy"
+      :loginStatus="loginStatus"
+    ></router-view>
   </div>
 </template>
 
@@ -36,9 +40,10 @@ export default {
       this.memberInfo.memberName = loginInfo[0].mname;
       this.memberInfo.memberEmail = loginInfo[0].email;
 
-      // console.log(this.memberInfo.memberid);
-      // console.log(this.memberInfo.memberName);
-      // console.log(this.memberInfo.memberEmail);
+      localStorage.setItem("localLogin", true);
+      localStorage.setItem("memberId", this.memberInfo.memberid);
+      localStorage.setItem("memberName", this.memberInfo.memberName);
+      localStorage.setItem("memberEmail", this.memberInfo.memberEmail);
 
       this.loginStatus = !this.loginStatus;
       // console.log(this.loginStatus);
@@ -48,18 +53,22 @@ export default {
     logout() {
       this.loginStatus = !this.loginStatus;
 
-      this.memberInfo.memberid = "";
+      this.memberInfo.memberid = 0;
       this.memberInfo.memberName = "";
       this.memberInfo.memberEmail = "";
+
+      localStorage.clear();
 
       // console.log(this.memberInfo);
 
       alert("See you next time!");
+
     },
-    clickBuy(id){
-      console.log(id);
-      this.cartCount ++;
-    }
+    clickBuy(id) {
+      // console.log(id);
+      // console.log(this.loginStatus);
+      // this.cartCount ++;
+    },
   },
 };
 </script>

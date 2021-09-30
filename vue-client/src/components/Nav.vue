@@ -6,19 +6,19 @@
       <router-link to="/shop"><li>Shop</li></router-link>
 
       <router-link to="/member"
-        ><li :style="{ display: loginStatus ? '' : 'none' }">
-          {{ memberInfo.memberName }}
+        ><li :style="{ display: localLogin === 'true' ? '' : 'none' }">
+          {{ memberName }}
         </li></router-link
       >
       <router-link to="/"
         ><li
           @click="$emit('logout')"
-          :style="{ display: loginStatus ? '' : 'none' }"
+          :style="{ display: localLogin === 'true' ? '' : 'none' }"
         >
           Logout
         </li></router-link
       >
-      <router-link to="/login" :style="{ display: loginStatus ? 'none' : '' }"
+      <router-link to="/login" :style="{ display: localLogin === 'true' ? 'none' : '' }"
         ><li>Login</li></router-link
       >
       <router-link to="/cart"
@@ -37,6 +37,12 @@
 <script>
 export default {
   name: "Nav",
+  data(){
+    return{
+      localLogin: localStorage['localLogin'],
+      memberName: localStorage['memberName'],
+    }
+  },
   props: {
     loginStatus: Boolean,
     memberInfo: Object,
